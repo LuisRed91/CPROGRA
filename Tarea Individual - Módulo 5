@@ -1,0 +1,219 @@
+package tareamodulo5luisvallecillo;
+
+import java.util.Scanner;
+import Clases.Circulo;
+import Clases.Cuadrado;
+import Clases.Linea;
+import Clases.Triangulo;
+
+public class TareaModulo5LuisVallecillo {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        //Forma circulo
+        Circulo circulo1 = new Circulo();
+        System.out.println(circulo1.ObtenerInformacionForma());
+        circulo1.dibujar(circulo1.obtenerForma(), circulo1.obtenerColor());
+        System.out.print("Ingrese el diametro del circulo: ");
+        double d = sc.nextDouble();
+        circulo1.CalcularRadio(d);
+        System.out.println("\n");
+
+        //Forma Linea
+        Linea linea1 = new Linea();
+        System.out.println(linea1.ObtenerInformacionForma());
+        linea1.dibujar2(linea1.obtenerForma(), linea1.obtenerColor(), linea1.obtenerLargo());
+        System.out.println("\n");
+
+        //Forma Triangulo
+        Triangulo triangulo1 = new Triangulo();
+        System.out.println(triangulo1.ObtenerInformacionForma());
+        triangulo1.dibujar3(triangulo1.obtenerForma(), triangulo1.obtenerColor(), triangulo1.obtenerAngulo());
+        triangulo1.areaTriangulo(triangulo1.obtenerLadoA(), triangulo1.obtenerLadoB(), triangulo1.obtenerAngulo());
+        System.out.println("\n");
+
+        //Forma Cuadrado
+        Cuadrado cuadrado1 = new Cuadrado();
+        System.out.println(cuadrado1.ObtenerInformacionForma());
+        cuadrado1.dibujar(cuadrado1.obtenerForma(), cuadrado1.obtenerColor());
+        cuadrado1.areaCuadrado(cuadrado1.obtenerLadoA(), cuadrado1.obtenerLadoB());
+        System.out.println("\n");
+    }
+}
+
+package Clases;
+
+public abstract class Formas {
+
+    private String color;
+    private String forma;
+    private double largo;
+    private double angulo;
+    private double ladoA;
+    private double ladoB;
+
+    //Setters
+    public void establecerColor(String color) {
+        this.color = color;
+    }
+
+    public void establecerForma(String forma) {
+        this.forma = forma;
+    }
+
+    public void establecerLargo(double largo) {
+        this.largo = largo;
+    }
+
+    public void establecerAngulo(double angulo) {
+        this.angulo = angulo;
+    }
+
+    public void establecerLadoA(double ladoA) {
+        this.ladoA = ladoA;
+    }
+
+    public void establecerLadoB(double ladoB) {
+        this.ladoB = ladoB;
+    }
+
+    //Getters
+    public String obtenerColor() {
+        return color;
+    }
+
+    public String obtenerForma() {
+        return forma;
+    }
+
+    public double obtenerLargo() {
+        return largo;
+    }
+
+    public double obtenerAngulo() {
+        return angulo;
+    }
+
+    public double obtenerLadoA() {
+        return ladoA;
+    }
+
+    public double obtenerLadoB() {
+        return ladoB;
+    }
+
+    //Metodos de impresion
+    public void dibujar(String forma, String color) {
+        System.out.println("La forma es un: " + forma + "\n" + "El color de la forma es: " + color);
+    }
+
+    public void dibujar2(String forma, String color, double largo) {
+        System.out.println("La forma es una: " + forma + "\n" + "El color de la forma es: " + color + "\n" + "El largo de la forma es: " + largo + " cm");
+    }
+
+    public void dibujar3(String forma, String color, double angulo) {
+        System.out.println("La forma es un: " + forma + "\n" + "El color de la forma es: " + color + "\n" + "El angulo de la forma es de: " + angulo + "°");
+    }
+
+    abstract String ObtenerInformacionForma();
+
+}
+
+package Clases;
+
+import java.text.DecimalFormat;
+
+public class Circulo extends Formas {
+    private double Radio;
+    
+    public Circulo(){
+        establecerForma("Circulo");
+        establecerColor("Verde");
+    }
+    
+    public void CalcularRadio(double diametro){
+        DecimalFormat df = new DecimalFormat("#.00");
+        Radio = diametro/2;
+        System.out.println("El radio del Circulo es: "+df.format(Radio));
+    }
+
+    @Override
+    public String ObtenerInformacionForma() {
+        return "Informacion de la figura";
+    }
+}
+
+package Clases;
+
+public class Linea extends Formas{
+    private double largo = 15;
+    
+    public Linea() {
+        establecerForma("Linea");
+        establecerColor("Azul");
+        establecerLargo(largo);
+    }
+
+    @Override
+    public String ObtenerInformacionForma() {
+        return "Informacion de la figura";
+    }
+    
+}
+
+package Clases;
+
+import static java.lang.Math.sin;
+import java.text.DecimalFormat;
+
+public class Triangulo extends Formas {
+    private double angulo = 45;
+    
+    public Triangulo() {
+        establecerForma("Triangulo");
+        establecerColor("Amarillo");
+        establecerLadoA(15);
+        establecerLadoB(18);
+        establecerAngulo(angulo);
+    }
+
+    public void areaTriangulo(double ladoA, double ladoB, double angulo) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        double areat = (0.5) * (ladoA * ladoB * sin(angulo));
+        System.out.println("El área del triangulo es: " + df.format(areat)+" cm cuadrados");
+    }
+
+    @Override
+    public String ObtenerInformacionForma() {
+        return "Informacion de la figura";
+    }
+
+}
+
+package Clases;
+
+import java.text.DecimalFormat;
+
+public class Cuadrado extends Formas {
+
+    private double areac;
+
+    public Cuadrado() {
+        establecerForma("Cuadrado");
+        establecerColor("Negro");
+        establecerLadoA(5);
+        establecerLadoB(10);
+    }
+
+    public void areaCuadrado(double ladoA, double ladoB) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        areac = ladoA * ladoB;
+        System.out.println("El área del cuadrado es: " + df.format(areac)+" cm cuadrados");
+    }
+
+    @Override
+    public String ObtenerInformacionForma() {
+        return "Informacion de la figura";
+    }
+}
